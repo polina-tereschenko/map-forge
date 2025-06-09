@@ -8,8 +8,13 @@
  * Output: ['name', 'age', 'city']
  */
 export function objectKeysToArray(obj: Record<string, any>): string[] {
-    // TODO: Implement this function
-    return [];
+    // const keys: string[] = [];
+    // for (const key in obj){
+    //     keys.push(key);
+    // }
+    // return keys;
+
+    return Object.keys(obj);
 }
 
 /**
@@ -22,8 +27,14 @@ export function objectKeysToArray(obj: Record<string, any>): string[] {
  * Output: ['John', 30, 'New York']
  */
 export function objectValuesToArray(obj: Record<string, any>): any[] {
-    // TODO: Implement this function
-    return [];
+    // const values: any[] = [];
+
+    // for (const key in obj) {
+    //         values.push(obj[key]);
+    //     }
+    // return values;
+
+    return Object.values(obj);
 }
 
 /**
@@ -36,6 +47,12 @@ export function objectValuesToArray(obj: Record<string, any>): any[] {
  * Output: [['name', 'John'], ['age', 30], ['city', 'New York']]
  */
 export function objectEntriesToArray(obj: Record<string, any>): [string, any][] {
-    // TODO: Implement this function
-    return [];
+    // const objectEntries: [string, any][] = [];
+
+    // for (const key in obj) {
+    //     objectEntries.push([key, obj[key]]);
+    // }
+    // return objectEntries;
+
+    return Object.entries(obj);
 } 
