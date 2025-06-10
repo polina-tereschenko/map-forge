@@ -9,8 +9,16 @@
  * Output: 'apple-banana-cherry'
  */
 export function joinArrayToString(strings: string[], separator: string): string {
-    // TODO: Implement this function
-    return '';
+    // let result = strings[0];
+    // if (strings.length === 0) return '';
+
+    // for (let i = 1; i < strings.length; i++) {
+    //     result += separator + strings[i];
+    // }
+
+    // return result;
+
+    return strings.join(separator);
 }
 
 /**
@@ -24,8 +32,7 @@ export function joinArrayToString(strings: string[], separator: string): string 
  * Output: ['apple', 'banana', 'cherry']
  */
 export function splitStringToArray(str: string, separator: string): string[] {
-    // TODO: Implement this function
-    return [];
+    return str.split(separator);
 }
 
 /**
@@ -39,6 +46,5 @@ export function splitStringToArray(str: string, separator: string): string[] {
  * Output: [4, 3, 2, 1]
  */
 export function reverseArray<T>(array: T[]): T[] {
-    // TODO: Implement this function
-    return [];
+    return array.reverse();
 } 
