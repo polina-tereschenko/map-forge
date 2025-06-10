@@ -1,3 +1,5 @@
+import { count } from "console";
+
 /**
  * Task 13: Find Unique Values with Count
  * 
@@ -9,8 +11,17 @@
  * Output: { apple: 2, banana: 2, cherry: 1 }
  */
 export function countUniqueValues<T extends string | number>(array: T[]): Record<T, number> {
-    // TODO: Implement this function
-    return {} as Record<T, number>;
+    const counteditem = {} as Record<T, number>;
+    for (const item of array) {
+        const currCount = counteditem[item] ?? 0;
+        counteditem[item] = currCount + 1;
+    };
+    return counteditem;
+
+    // return array.reduce((counts, value) => {
+    //     counts[value] = (counts[value] || 0) + 1;
+    //     return counts;
+    // }, {} as Record<T, number>);
 }
 
 /**
@@ -30,8 +41,15 @@ export function countUniqueValues<T extends string | number>(array: T[]): Record
  * }
  */
 export function sortAndGroupByFirstLetter(strings: string[]): Record<string, string[]> {
-    // TODO: Implement this function
-    return {};
+    const result: Record<string, string[]> = {};
+    for (const item of strings) {
+        const firstItem = item[0];
+        if (!(firstItem in result)) {
+            result[firstItem] = [];
+        }
+        result[firstItem].push(item);
+    }
+    return result;
 }
 
 /**
@@ -45,6 +63,10 @@ export function sortAndGroupByFirstLetter(strings: string[]): Record<string, str
  * Output: [3, 4]
  */
 export function findCommonElements<T>(...arrays: T[][]): T[] {
-    // TODO: Implement this function
-    return [];
+    const firstArray = arrays[0];
+    console.log(arrays);
+    
+    return firstArray.filter(element => 
+        arrays.every(array => array.includes(element))
+    );
 } 
