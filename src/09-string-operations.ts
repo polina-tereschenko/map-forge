@@ -9,8 +9,7 @@
  * Output: 'Hello World'
  */
 export function toTitleCase(str: string): string {
-    // TODO: Implement this function
-    return '';
+    return str.split(' ').map((word) => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
 }
 
 /**
@@ -24,8 +23,9 @@ export function toTitleCase(str: string): string {
  * Output: 2
  */
 export function countWords(str: string): number {
-    // TODO: Implement this function
-    return 0;
+    return str.split(' ')
+        .filter(function (n) { return n != '' })
+        .length;
 }
 
 /**
@@ -40,6 +40,8 @@ export function countWords(str: string): number {
  * Output: 'hello...'
  */
 export function truncateString(str: string, maxLength: number): string {
-    // TODO: Implement this function
-    return '';
+    if (str.length <= maxLength) {
+        return str;
+    }
+    return str.slice(0, maxLength) + '...';
 } 
