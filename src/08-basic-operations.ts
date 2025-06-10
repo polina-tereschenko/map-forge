@@ -9,8 +9,15 @@
  * Output: 9
  */
 export function findMaximum(numbers: number[]): number {
-    // TODO: Implement this function
-    return 0;
+    // let max = -Infinity;
+    // for (let i = 0; i < numbers.length; i++) {
+    //     if (numbers[i] > max) {
+    //         max = numbers[i];
+    //     }
+    // }
+    // return max;
+
+    return Math.max(...numbers);
 }
 
 /**
@@ -24,8 +31,7 @@ export function findMaximum(numbers: number[]): number {
  * Output: true
  */
 export function arrayContainsValue<T>(array: T[], value: T): boolean {
-    // TODO: Implement this function
-    return false;
+    return array.includes(value);
 }
 
 /**
@@ -39,6 +45,7 @@ export function arrayContainsValue<T>(array: T[], value: T): boolean {
  * Output: [1, 2, 3, 4]
  */
 export function removeDuplicates<T>(array: T[]): T[] {
-    // TODO: Implement this function
-    return [];
+    // return array.filter((item, index, array) => array.indexOf(item) === index);
+
+    return [...new Set(array)];
 } 
