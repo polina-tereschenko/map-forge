@@ -8,8 +8,35 @@
  * Output: [1, 2, 3, 4, 5, 6]
  */
 export function flattenArrays(arrays: number[][]): number[] {
-    // TODO: Implement this function
-    return [];
+    // const flattenArrays: number[] = [];
+    // for (const i of arrays) {
+    //     for (const j of i){
+    //         flattenArrays.push(j);
+    //     }
+    // }
+    // return flattenArrays;
+
+    // const flattenArrays: number[] = [];
+    // for (const i in arrays) {
+    //     for (const j in arrays[i]) {
+    //         flattenArrays.push(arrays[i][j]);
+    //     }
+    // }
+    // return flattenArrays;
+
+    // const flattenArrays: number[] = [];
+
+    // for (let i = 0; i < arrays.length; i++) {
+    //     const innerArray = arrays[i];
+    //     console.log(innerArray);
+    //     for (let j = 0; j < innerArray.length; j++) {
+    //         flattenArrays.push(innerArray[j]);
+    //         console.log(innerArray[j]);
+    //     }
+    // }
+    // return flattenArrays;
+
+    return arrays.flat();
 }
 
 /**
@@ -23,8 +50,17 @@ export function flattenArrays(arrays: number[][]): number[] {
  * Output: [1, 2, 3, 4]
  */
 export function extractNestedValues(obj: Record<string, any>): any[] {
-    // TODO: Implement this function
-    return [];
+    const result: any[] = [];
+
+    for (const key in obj) {
+        const value = obj[key];
+        if (typeof value === 'object') {
+            result.push(...extractNestedValues(value));
+        } else {
+            result.push(value);
+        }
+    }
+    return result;
 }
 
 /**
@@ -48,6 +84,13 @@ export function groupByProperty<T extends Record<string, any>>(
     items: T[],
     property: keyof T
 ): Record<string, T[]> {
-    // TODO: Implement this function
-    return {};
-} 
+    const result: Record<string, T[]> = {};
+    for (const item of items){
+        const objkey = item[property];
+        if (!(objkey in result)) {
+            result[objkey] = [];
+        }
+        result[objkey].push(item);
+    }
+    return result;
+}
