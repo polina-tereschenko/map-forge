@@ -12,8 +12,11 @@ export function mapObjectValues<T, R>(
     obj: Record<string, T>,
     transform: (value: T) => R
 ): Record<string, R> {
-    // TODO: Implement this function
-    return {};
+    const result: Record<string, R> = {};
+    for (const [key, value] of Object.entries(obj)) {
+        result[key] = transform(value);
+    }
+    return result;
 }
 
 /**
@@ -31,8 +34,13 @@ export function filterObjectProperties<T>(
     obj: Record<string, T>,
     predicate: (value: T) => boolean
 ): Record<string, T> {
-    // TODO: Implement this function
-    return {};
+    const result: Record<string, T> = {};
+    for (const [key, value] of Object.entries(obj)) {
+        if (predicate(value) === true) {
+            result[key] = value;
+        }
+    }
+    return result;
 }
 
 /**
@@ -55,6 +63,10 @@ export function arrayToObject<T, K extends string | number, V>(
     keySelector: (item: T) => K,
     valueSelector: (item: T) => V
 ): Record<K, V> {
-    // TODO: Implement this function
-    return {} as Record<K, V>;
+    const result = {} as Record<K, V>;
+    for (const item of array){
+        const key = keySelector(item);
+        result[key]  = valueSelector(item);
+    }
+    return result;
 } 
