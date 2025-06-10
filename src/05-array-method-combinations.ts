@@ -64,7 +64,6 @@ export function sortAndGroupByFirstLetter(strings: string[]): Record<string, str
  */
 export function findCommonElements<T>(...arrays: T[][]): T[] {
     const firstArray = arrays[0];
-    console.log(arrays);
     
     return firstArray.filter(element => 
         arrays.every(array => array.includes(element))

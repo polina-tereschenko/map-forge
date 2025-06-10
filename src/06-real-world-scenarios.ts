@@ -44,13 +44,19 @@ export function calculateUserStatistics(users: User[]): {
     averageAge: number;
     ageGroups: Record<string, number>;
 } {
-    // TODO: Implement this function
-    return {
+    const result = {
         totalUsers: 0,
         activeUsers: 0,
         averageAge: 0,
         ageGroups: {}
     };
+    for (const item of users) {
+        console.log(item);
+        // const currCount = result[item] ?? 0;
+        // result[item] = currCount + 1;
+    };    
+    
+    return result;
 }
 
 /**
