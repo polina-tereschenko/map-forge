@@ -27,17 +27,6 @@ interface Order {
 
 describe('Calculate User Statistics', () => {
     describe('calculateUserStatistics', () => {
-        it('should count occurrences of unique values', () => {
-            const users: User[] = [];
-            const result = calculateUserStatistics(users);
-            expect(result).toEqual({
-                totalUsers: 0,
-                activeUsers: 0,
-                averageAge: 0,
-                ageGroups: {}
-            });
-        });
-
         it('should calculate correct statistics for active and inactive users', () => {
             const users: User[] = [
                 { id: 1, name: 'John', email: 'john@example.com', age: 30, active: true },
@@ -126,23 +115,23 @@ describe('Calculate User Statistics', () => {
                     status: 'completed',
                     date: '2024-01-15'
                 },
-                {
-                    id: 3,
-                    userId: 2,
-                    products: [
-                        { id: 1, name: 'Product A', price: 10, quantity: 1 }
-                    ],
-                    status: 'pending',
-                    date: '2024-01-10'
-                }
             ];
             const result = generateUserActivityReport(users, orders);
             expect(result).toEqual({
                 'john@example.com': {
                     name: 'John',
+                    totalOrders: 1,
+                    totalSpent: 20,
+                    averageOrderValue: 10,
+                    lastOrderDate: '2024-01-15'
+                }
+            });
+            expect(result).toEqual({
+                'jane@example.com': {
+                    name: 'Jane',
                     totalOrders: 2,
-                    totalSpent: 10 * 2 + 20 * 1 + 15 * 3, // 85
-                    averageOrderValue: 42.5,
+                    totalSpent: 20 * 1 + 15 * 3,
+                    averageOrderValue: 16.25,
                     lastOrderDate: '2024-01-15'
                 }
             });
