@@ -45,7 +45,5 @@ export function arrayContainsValue<T>(array: T[], value: T): boolean {
  * Output: [1, 2, 3, 4]
  */
 export function removeDuplicates<T>(array: T[]): T[] {
-    // return array.filter((item, index, array) => array.indexOf(item) === index);
-
-    return [...new Set(array)];
+    return array.filter((item, index, array) => array.indexOf(item) === index);
 } 
