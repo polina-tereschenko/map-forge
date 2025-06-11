@@ -9,8 +9,7 @@
  * Output: [1, 1, 3, 4, 5]
  */
 export function sortNumbers(numbers: number[]): number[] {
-    // TODO: Implement this function
-    return [];
+    return numbers.sort((a, b) => a - b);
 }
 
 /**
@@ -24,8 +23,7 @@ export function sortNumbers(numbers: number[]): number[] {
  * Output: ['a', 'bb', 'ccc']
  */
 export function sortByLength(strings: string[]): string[] {
-    // TODO: Implement this function
-    return [];
+    return strings.sort((a, b) => a.length - b.length);
 }
 
 /**
@@ -48,6 +46,9 @@ export function sortByProperty<T extends Record<string, any>>(
     objects: T[],
     property: keyof T
 ): T[] {
-    // TODO: Implement this function
-    return [];
+    return [...objects].sort((a, b) => {
+        if (a[property] > b[property]) return 1;
+        if (a[property] < b[property]) return -1;
+        return 0;
+    });
 } 
