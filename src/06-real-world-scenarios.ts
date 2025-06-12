@@ -170,28 +170,35 @@ export function generateUserActivityReport(
         let totalSpent = 0;
         let lastOrderDate = '';
         let totalQuantity = 0;
+
         for (const orderDetail of orders) {
             if (orderDetail.userId === user.id) {
                 totalOrders++;
                 let orderTotal = 0;
-                for (const productdetail of orderDetail.products) {
-                    const price = productdetail.price;
-                    orderTotal += productdetail.price * productdetail.quantity;
-                    totalQuantity += productdetail.quantity;
+
+                for (const productDetail of orderDetail.products) {
+                    orderTotal += productDetail.price * productDetail.quantity;
+                    totalQuantity += productDetail.quantity;
                 }
+
                 totalSpent += orderTotal;
+
                 if (lastOrderDate === '' || orderDetail.date > lastOrderDate) {
                     lastOrderDate = orderDetail.date;
                 }
             }
         }
-        result[user.email] = {
-            name: user.name,
-            totalOrders,
-            totalSpent,
-            averageOrderValue: Math.round(totalSpent / totalQuantity),
-            lastOrderDate
-        };
+
+        if (totalOrders > 0 && totalQuantity > 0) {
+            result[user.email] = {
+                name: user.name,
+                totalOrders,
+                totalSpent,
+                averageOrderValue: Math.round(totalSpent / totalQuantity),
+                lastOrderDate
+            };
+        }
     }
+    
     return result;
-} 
+}
