@@ -44,19 +44,30 @@ export function calculateUserStatistics(users: User[]): {
     averageAge: number;
     ageGroups: Record<string, number>;
 } {
-    const result = {
-        totalUsers: 0,
-        activeUsers: 0,
-        averageAge: 0,
-        ageGroups: {}
+    const totalUsers = users.length;
+    const activeUsers = users.filter(user => user.active).length;
+    const totalAge = users.reduce((sum, user) => sum + user.age, 0);
+    const averageAge = totalAge / totalUsers;
+    const ageGroups: Record<string, number> = {};
+
+    for (let i = 0; i < users.length; i++) {
+        const user = users[i];
+        const decade = Math.floor(user.age / 10) * 10;
+        const groupKey = `${decade}-${decade + 9}`;
+
+        if (ageGroups[groupKey]) {
+            ageGroups[groupKey] += 1;
+        } else {
+            ageGroups[groupKey] = 1;
+        }
+    }
+
+    return {
+        totalUsers,
+        activeUsers,
+        averageAge,
+        ageGroups
     };
-    for (const item of users) {
-        console.log(item);
-        // const currCount = result[item] ?? 0;
-        // result[item] = currCount + 1;
-    };    
-    
-    return result;
 }
 
 /**
@@ -87,8 +98,25 @@ export function processOrderData(orders: Order[]): Record<string, {
     totalSold: number;
     totalRevenue: number;
 }> {
-    // TODO: Implement this function
-    return {};
+    const productStatistics: Record<string, { totalSold: number; totalRevenue: number }> = {};
+
+    for (const order of orders) {
+        for (const detailOrder of order.products) {
+            const name = detailOrder.name;
+            const price = detailOrder.price;
+            const quantity = detailOrder.quantity;
+            if (!(name in productStatistics)) {
+                productStatistics[name] = {
+                    totalSold: 0,
+                    totalRevenue: 0,
+                };
+            }
+            productStatistics[name].totalSold += quantity;
+            productStatistics[name].totalRevenue += price * quantity;
+        }
+    }
+
+    return productStatistics;
 }
 
 /**
@@ -114,7 +142,7 @@ export function processOrderData(orders: Order[]): Record<string, {
  *     name: 'John',
  *     totalOrders: 1,
  *     totalSpent: 20,
- *     averageOrderValue: 20,
+ *     averageOrderValue: 10,
  *     lastOrderDate: '2024-01-01'
  *   }
  * }
@@ -129,6 +157,41 @@ export function generateUserActivityReport(
     averageOrderValue: number;
     lastOrderDate: string;
 }> {
-    // TODO: Implement this function
-    return {};
+    const result: Record<string, {
+        name: string;
+        totalOrders: number;
+        totalSpent: number;
+        averageOrderValue: number;
+        lastOrderDate: string;
+    }> = {};
+
+    for (const user of users) {
+        let totalOrders = 0;
+        let totalSpent = 0;
+        let lastOrderDate = '';
+        let totalQuantity = 0;
+        for (const orderDetail of orders) {
+            if (orderDetail.userId === user.id) {
+                totalOrders++;
+                let orderTotal = 0;
+                for (const productdetail of orderDetail.products) {
+                    const price = productdetail.price;
+                    orderTotal += productdetail.price * productdetail.quantity;
+                    totalQuantity += productdetail.quantity;
+                }
+                totalSpent += orderTotal;
+                if (lastOrderDate === '' || orderDetail.date > lastOrderDate) {
+                    lastOrderDate = orderDetail.date;
+                }
+            }
+        }
+        result[user.email] = {
+            name: user.name,
+            totalOrders,
+            totalSpent,
+            averageOrderValue: Math.round(totalSpent / totalQuantity),
+            lastOrderDate
+        };
+    }
+    return result;
 } 
