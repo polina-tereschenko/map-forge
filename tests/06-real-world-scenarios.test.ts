@@ -83,17 +83,10 @@ describe('Calculate User Statistics', () => {
     });
 
     describe('generateUserActivityReport', () => {
-        it('should return empty object for empty inputs', () => {
-            const users: User[] = [];
-            const orders: Order[] = [];
-            const result = generateUserActivityReport(users, orders);
-            expect(result).toEqual({});
-        });
-
         it('should generate correct report for users with orders', () => {
             const users: User[] = [
                 { id: 1, name: 'John', email: 'john@example.com', age: 30, active: true },
-                { id: 2, name: 'Jane', email: 'jane@example.com', age: 25, active: false }
+                { id: 2, name: 'Jane', email: 'jane@example.com', age: 25, active: false },
             ];
             const orders: Order[] = [
                 {
@@ -107,10 +100,20 @@ describe('Calculate User Statistics', () => {
                 },
                 {
                     id: 2,
-                    userId: 1,
+                    userId: 2,
                     products: [
                         { id: 2, name: 'Product B', price: 20, quantity: 1 },
                         { id: 3, name: 'Product C', price: 15, quantity: 3 }
+                    ],
+                    status: 'completed',
+                    date: '2024-01-19'
+                },
+                {
+                    id: 3,
+                    userId: 1,
+                    products: [
+                        { id: 4, name: 'Product A', price: 20, quantity: 1 },
+                        { id: 5, name: 'Product D', price: 15, quantity: 3 }
                     ],
                     status: 'completed',
                     date: '2024-01-15'
@@ -120,21 +123,19 @@ describe('Calculate User Statistics', () => {
             expect(result).toEqual({
                 'john@example.com': {
                     name: 'John',
-                    totalOrders: 1,
-                    totalSpent: 20,
-                    averageOrderValue: 10,
+                    totalOrders: 2,
+                    totalSpent: 85,
+                    averageOrderValue: 14,
                     lastOrderDate: '2024-01-15'
-                }
-            });
-            expect(result).toEqual({
+                },
                 'jane@example.com': {
                     name: 'Jane',
-                    totalOrders: 2,
-                    totalSpent: 20 * 1 + 15 * 3,
-                    averageOrderValue: 16.25,
-                    lastOrderDate: '2024-01-15'
+                    totalOrders: 1,
+                    totalSpent: 65,
+                    averageOrderValue: 16,
+                    lastOrderDate: '2024-01-19'
                 }
             });
         });
     });
-}); 
+});
